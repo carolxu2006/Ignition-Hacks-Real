@@ -30,9 +30,26 @@ Users can select favorite genres, list top 3 favorite books, and browse recommen
 
 ## 📷 Screenshots
 
+### Registeration Page
+![Register Page](static/register.png)
+
+### Login Page
+![Login Page](static/login.png)
+
+### Landing Page
+![Landing Page](static/landing.png)
+
 ### Preferences Page
 ![Preferences Page](static/preferences.png)
 
+### Fishing Page
+![Fishing Page](static/cardDeck.png)
+
+### Details Page
+![Details Page](static/details.png)
+
+### Saved Books Page
+![Saved Books Page](static/SavedBooks.png)
 ---
 
 ## ⚙️ Installation
@@ -41,22 +58,30 @@ Users can select favorite genres, list top 3 favorite books, and browse recommen
    ```bash
    git clone https://github.com/yourusername/hooked.git
    cd hooked
+   ```
+
 2. **Create and activate a virtual environment**  
   ```bash
   python -m venv venv
   source venv/bin/activate   # macOS / Linux
   venv\Scripts\activate      # Windows
+  ```
+
 3. **Install dependencies**
   ```bash
   pip install -r requirements.txt
+  ```
+
 4. **Run the Flask app**
   ```bash
   flask run
+  ```
+
 5. **Open in your browser**
   ```bash
   http://127.0.0.1:5000
+  ```
   
-
 ## Project Structure
 hooked/
 │── static/               # CSS, images, icons
