@@ -276,7 +276,7 @@
         detailsBtn.addEventListener('click', handleDetailsClick);
       }
     }
-
+    // Rotates info box based on mouse movement
     function handleMouseMove(e) {
       const rect = wrapper.getBoundingClientRect();
       const x = e.clientX - rect.left;
@@ -309,7 +309,7 @@
       wrapper.removeEventListener('mousemove', handleMouseMove);
       wrapper.removeEventListener('mouseleave', handleMouseLeave);
       wrapper.removeEventListener('click', handleClick);
-
+      // Right swipe to save book info and left just shows a new one
       if (x < third) {
         currentCard.classList.add('slide-left');
         window.location.reload()
