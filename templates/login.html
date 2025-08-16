@@ -162,7 +162,7 @@
     <link rel="shortcut icon" type="image/x-icon" href="hookIcon.ico" />
 
     </head>
-
+    <!-- Creates nav bar and logo icon -->
     <header class="nav">
         <a class="nav-logo" href="/">
             <link rel="icon" type="image/png" href="{{ url_for('static', filename='logo.png') }}">
@@ -179,7 +179,8 @@
     </header>
 
     <br><br><br><br><br><br><br><br>
-    
+
+    <!-- Login form -->
     <body>
         <form action="/login" method="post">
             <input autocomplete="off" name="username" placeholder="Username" required type="text">
