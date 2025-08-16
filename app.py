@@ -27,10 +27,19 @@ def login_required(f):
 
     return decorated_function
 
-@app.route("/")
+@app.route("/", methods=["GET"])
 @login_required
 def index():
-    return render_template("index.html")
+    uid = session["user_id"]
+
+    conn = sqlite3.connect('users.db')
+    conn.row_factory = sqlite3.Row 
+    cursor = conn.cursor()
+    cursor.execute("SELECT * FROM users WHERE user_id = ?", (uid,))
+    user = cursor.fetchone()
+    conn.close()
+
+    return render_template("index.html", user=user)
 
 @app.route("/login", methods=["GET", "POST"])
 def login():
