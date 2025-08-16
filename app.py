@@ -101,14 +101,16 @@ def page3():
         cursor = conn.cursor()
         cursor.execute("SELECT genre1,genre2,genre3 FROM users WHERE id = ?", (id,))
         user_genres = cursor.fetchone()
-        if user_genres:
-            genres = [user_genres['genre1'], user_genres['genre2'], user_genres['genre3']]
-        else:
-            genres = []
+
         conn2 = sqlite3.connect('books.db')
         conn2.row_factory = sqlite3.Row #makes it like a dictionary
         cursor2 = conn2.cursor()
-        cursor2.execute("SELECT * FROM books WHERE genres LIKE ? OR genres LIKE ? OR genres LIKE ?", ('%' + genres[0] + '%', '%' + genres[1] + '%', '%' + genres[2] + '%'))
+        
+        if user_genres == None:
+            genres = [user_genres['genre1'], user_genres['genre2'], user_genres['genre3']]
+            cursor2.execute("SELECT * FROM books WHERE genres LIKE ? OR genres LIKE ? OR genres LIKE ?", ('%' + genres[0] + '%', '%' + genres[1] + '%', '%' + genres[2] + '%'))
+        else:
+            cursor2.execute("SELECT * FROM books")
         books = [dict(row) for row in cursor2.fetchall()]
         book = random.choice(books)
         book['genres'] = ast.literal_eval(book['genres'])
