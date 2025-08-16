@@ -1,11 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
     <head>
+        <!-- Meta + Title -->
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <title>Hooked</title>
         <link rel="shortcut icon" type="image/x-icon" href="hookIcon.ico" />
         <style>
+            /* ---------- Theme Variables ---------- */
             :root{
                 --bg:#3D0037;
                 --card:#500243;
@@ -14,7 +16,7 @@
                 --hover-purple:#4b0239;
             }
 
-            /* base */
+            /* ---------- Base Styles ---------- */
             body { 
                 margin:0; 
                 font-family:"Times New Roman", Times, serif; 
@@ -44,6 +46,7 @@
                 font-weight:bold; 
             }
 
+            /* ---------- Card Layout ---------- */
             .card{ 
                 background:var(--card); 
                 padding:20px; 
@@ -51,7 +54,7 @@
                 margin-top:30px; 
             }
 
-            /* genres */
+            /* ---------- Genre Pills ---------- */
             .genres{ 
                 display:flex; 
                 flex-wrap:wrap; 
@@ -67,7 +70,7 @@
             }
 
             .pill input{ 
-                display:none; 
+                display:none;  /* hide default checkbox */
             }
 
             .pill span{ 
@@ -77,12 +80,14 @@
                 border-radius:999px; 
             }
 
+            /* Highlight selected pill */
             .pill input:checked + span {
                 background: var(--hover-purple);
                 color:#fff;
                 box-shadow: 0 0 0 2px rgba(255,235,253,.45);
             }
 
+            /* ---------- Book Inputs Grid ---------- */
             .grid{ 
                 display:grid; 
                 gap:20px; 
@@ -103,7 +108,7 @@
                 box-sizing:border-box;
             }
 
-            /* actions + button */
+            /* ---------- Actions + Submit Button ---------- */
             .actions{
             text-align: right;
             margin-top: 16px;
@@ -131,7 +136,7 @@
             transform: translateY(1px);
             }
 
-
+            /* ---------- Navigation Bar ---------- */
             .nav {
                 width: 100%;
                 max-width: 1200px;
@@ -173,6 +178,7 @@
                 padding-bottom: 2px;
             }
 
+            /* Underline hover animation */
             .nav-links a::after {
                 content: "";
                 position: absolute;
@@ -190,6 +196,7 @@
                 color: var(--pale);
             }
 
+            /* Highlight current page link */
             .nav-links a[aria-current="page"] {
                 color: var(--pale);
             }
@@ -200,7 +207,7 @@
     </head>
 
     <body>
-
+        <!-- ---------- Navigation ---------- -->
         <header class="nav">
             <a class="nav-logo" href="/">
                 <link rel="icon" type="image/png" href="{{ url_for('static', filename='logo.png') }}">
@@ -218,14 +225,17 @@
             </nav>
         </header>
 
+        <!-- ---------- Main Content ---------- -->
         <div class="container">
             <form class="card" action="/preferences" method="post">
                 <section class="card">
                     <h1>Tell Us Your Preferences!</h1>
 
+                    <!-- Favorite Genres Section -->
                     <div class="section">
                         <h2>Favorite Genres</h2>
                         <div class="genres">
+                            <!-- Genre pill checkboxes -->
                             <label class="pill"><input type="checkbox" name="genre" value="Fiction"><span>Fiction</span></label>
                             <label class="pill"><input type="checkbox" name="genre" value="Non-Fiction"><span>Non-Fiction</span></label>
                             <label class="pill"><input type="checkbox" name="genre" value="Fantasy"><span>Fantasy</span></label>
@@ -247,6 +257,7 @@
                         </div>
                     </div>
 
+                    <!-- Top 3 Favorite Books Section -->
                     <div class="section">
                         <h2>Top 3 Favorite Books</h2>
                         <div class="grid">
@@ -256,18 +267,22 @@
                         </div>
                     </div>
 
+                    <!-- Submit Button -->
                     <div class="actions"><a href="/page3" class="btn">Submit</a></div>
                 </section>
             </form>
 
-        <script>
-            const boxes = document.querySelectorAll('.genres input[type="checkbox"]');
-            function updateLimit() {
-                const chosen = [...boxes].filter(b => b.checked).length;
-                boxes.forEach(b => { if (!b.checked) b.disabled = (chosen >= 3); });
-            }
-            boxes.forEach(b => b.addEventListener('change', updateLimit));
-            updateLimit();
-        </script>
+            <!-- ---------- Limit Checkbox Selection Script ---------- -->
+
+            <script>
+                const boxes = document.querySelectorAll('.genres input[type="checkbox"]');
+                function updateLimit() {
+                    const chosen = [...boxes].filter(b => b.checked).length;
+                    boxes.forEach(b => { if (!b.checked) b.disabled = (chosen >= 3); });
+                }
+                boxes.forEach(b => b.addEventListener('change', updateLimit));
+                updateLimit();
+            </script>
+        </div>
     </body>
 </html>
