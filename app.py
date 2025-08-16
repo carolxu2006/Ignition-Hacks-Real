@@ -91,9 +91,9 @@ def register():
 
         return render_template("register.html")
 
-@app.route("/pagew3", methods=["GET", "POST"])
+@app.route("/page3", methods=["GET", "POST"])
 @login_required
-def pagew3():
+def page3():
     if request.method == "POST":
         conn = sqlite3.connect('choices.db')
         conn.row_factory = sqlite3.Row #makes it like a dictionary
@@ -124,54 +124,6 @@ def pagew3():
         book['genres'] = ast.literal_eval(book['genres'])
         book['publication_info'] = ast.literal_eval(book['publication_info']) 
         return render_template("page3.html", book = book)
-
-@app.route("/page3", methods=["GET", "POST"])
-@login_required
-def page3():
-    uid = session["user_id"]
-
-    # 1) Get user genres from users.db (NOT from choices.db)
-    conn_u = sqlite3.connect("users.db")
-    conn_u.row_factory = sqlite3.Row
-    cur_u = conn_u.cursor()
-    cur_u.execute("SELECT genre1, genre2, genre3 FROM users WHERE id = ?", (uid,))
-    user_genres = cur_u.fetchone()
-    conn_u.close()
-
-    # 2) Pick a book (filter by genres if available, else any)
-    conn_b = sqlite3.connect("books.db")
-    conn_b.row_factory = sqlite3.Row
-    cur_b = conn_b.cursor()
-
-    if user_genres and any(user_genres[g] for g in ("genre1", "genre2", "genre3")):
-        genres = [user_genres["genre1"], user_genres["genre2"], user_genres["genre3"]]
-        # keep only non-empty genres
-        g = [x for x in genres if x]
-        # build dynamic LIKEs
-        likes = " OR ".join(["genres LIKE ?"] * len(g))
-        cur_b.execute(f"SELECT * FROM books WHERE {likes}", [f"%{x}%" for x in g])
-    else:
-        cur_b.execute("SELECT * FROM books")
-
-    books = [dict(r) for r in cur_b.fetchall()]
-    conn_b.close()
-
-    # guard: if DB empty
-    if not books:
-        return render_template("page3.html", book=None)
-
-    book = random.choice(books)
-    # these columns are stringified dicts in your DB
-    try:
-        book["genres"] = ast.literal_eval(book["genres"])
-    except Exception:
-        pass
-    try:
-        book["publication_info"] = ast.literal_eval(book["publication_info"])
-    except Exception:
-        pass
-
-    return render_template("page3.html", book=book)
 
 
 @app.route("/page4", methods=["GET", "POST"])
