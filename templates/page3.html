@@ -190,6 +190,7 @@
   <link rel="shortcut icon" type="image/x-icon" href="hookIcon.ico" />
 
 </head>
+<!-- nav bar and logo with icon -->
 <body>
   <header class="nav">
     <a class="nav-logo" href="/">
@@ -207,7 +208,7 @@
         </ul>
     </nav>
   </header>
-
+<!-- Section on page that contains all book details-->
   <main class="wrapper">
     <section class="card">
       <div class="split">
@@ -221,10 +222,12 @@
           <div class="line-info"><span class="label">Genres:</span><span class="info">{{book.genres | join(", ")}}</span></div>
           <div class="line-info"><span class="label">Publication Date:</span><span class="info">{{book.publication_info | join(", ")}}</span></div>
           <div class="line-info"><span class="label">Average Rating:</span><span class="info">{{book.average_rating}}</span></div>
+          <!-- Button to view plot summary -->
           <form action="/page4" method ="post">
             <input type="hidden" name="book_id" value="{{book.book_id}}">
             <button class="details-btn">Details</button>
           </form>
+          <!-- Invisible button that tracks liked books and sends info to backend -->
           <form action = "/page3" method = "post">
             <input type="hidden" name="choice" value="{{book.book_title}}">
             <input type="hidden" name="choice2" value="{{book.author}}">
