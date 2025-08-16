@@ -81,11 +81,3 @@ Users can select favorite genres, list top 3 favorite books, and browse recommen
   ```bash
   http://127.0.0.1:5000
   ```
-  
-## Project Structure
-hooked/
-│── static/               # CSS, images, icons
-│── templates/            # HTML templates (Jinja2)
-│── app.py                 # Flask application entry point
-│── requirements.txt       # Python dependencies
-│── README.md              # Project documentation
