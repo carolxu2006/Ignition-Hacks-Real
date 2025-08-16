@@ -95,15 +95,40 @@ def page3():
     if request.method == "POST":
         print()
     else:
-        conn = sqlite3.connect('books.db')
+        id = session["user_id"]
+        conn = sqlite3.connect('users.db')
         conn.row_factory = sqlite3.Row #makes it like a dictionary
         cursor = conn.cursor()
-        cursor.execute("SELECT * FROM books")
-        books = [dict(row) for row in cursor.fetchall()]
+        cursor.execute("SELECT genre1,genre2,genre3 FROM users WHERE id = ?", (id,))
+        user_genres = cursor.fetchone()
+        if user_genres:
+            genres = [user_genres['genre1'], user_genres['genre2'], user_genres['genre3']]
+        else:
+            genres = []
+        conn2 = sqlite3.connect('books.db')
+        conn2.row_factory = sqlite3.Row #makes it like a dictionary
+        cursor2 = conn2.cursor()
+        cursor2.execute("SELECT * FROM books WHERE genres LIKE ? OR genres LIKE ? OR genres LIKE ?", ('%' + genres[0] + '%', '%' + genres[1] + '%', '%' + genres[2] + '%'))
+        books = [dict(row) for row in cursor2.fetchall()]
         book = random.choice(books)
         book['genres'] = ast.literal_eval(book['genres'])
         book['publication_info'] = ast.literal_eval(book['publication_info']) 
         return render_template("page3.html", book = book)
+
+@app.route("/page4", methods=["GET", "POST"])
+@login_required
+def page4():
+    if request.method == "POST":
+        conn = sqlite3.connect('books.db')
+        conn.row_factory = sqlite3.Row #makes it like a dictionary
+        cursor = conn.cursor()
+        cursor.execute("SELECT * FROM books WHERE book_id = ?",(request.form.get("book_id"),))
+        book = cursor.fetchone()
+        book = dict(book)
+        book['genres'] = ast.literal_eval(book['genres'])
+        book['publication_info'] = ast.literal_eval(book['publication_info']) 
+        conn.close()
+        return render_template("page4.html", book=book)
 
 @app.route("/page4", methods=["GET", "POST"])
 @login_required
