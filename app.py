@@ -35,11 +35,18 @@ def index():
     conn = sqlite3.connect('users.db')
     conn.row_factory = sqlite3.Row 
     cursor = conn.cursor()
-    cursor.execute("SELECT * FROM users WHERE user_id = ?", (uid,))
-    user = cursor.fetchone()
+    cursor.execute("SELECT * FROM users WHERE id = ?", (uid,))
+    row = cursor.fetchone()
     conn.close()
 
-    return render_template("index.html", user=user)
+    titles = []
+    if row:
+        # Loop through all columns that start with "book"
+        for key in row.keys():
+            if key.startswith("book") and row[key] and row[key].strip():
+               titles.append(row[key])
+
+    return render_template("index.html", titles=titles)
 
 @app.route("/login", methods=["GET", "POST"])
 def login():
@@ -95,10 +102,10 @@ def page3():
     if request.method == "POST":
         print()
     else:
-        id = session["user_id"]
-        conn = sqlite3.connect('users.db')
+        conn = sqlite3.connect('books.db')
         conn.row_factory = sqlite3.Row #makes it like a dictionary
         cursor = conn.cursor()
+<<<<<<< HEAD
         cursor.execute("SELECT genre1,genre2,genre3 FROM users WHERE id = ?", (id,))
         user_genres = cursor.fetchone()
 
@@ -112,25 +119,14 @@ def page3():
         else:
             cursor2.execute("SELECT * FROM books")
         books = [dict(row) for row in cursor2.fetchall()]
+=======
+        cursor.execute("SELECT * FROM books")
+        books = [dict(row) for row in cursor.fetchall()]
+>>>>>>> 9cea0ed (changes)
         book = random.choice(books)
         book['genres'] = ast.literal_eval(book['genres'])
         book['publication_info'] = ast.literal_eval(book['publication_info']) 
         return render_template("page3.html", book = book)
-
-@app.route("/page4", methods=["GET", "POST"])
-@login_required
-def page4():
-    if request.method == "POST":
-        conn = sqlite3.connect('books.db')
-        conn.row_factory = sqlite3.Row #makes it like a dictionary
-        cursor = conn.cursor()
-        cursor.execute("SELECT * FROM books WHERE book_id = ?",(request.form.get("book_id"),))
-        book = cursor.fetchone()
-        book = dict(book)
-        book['genres'] = ast.literal_eval(book['genres'])
-        book['publication_info'] = ast.literal_eval(book['publication_info']) 
-        conn.close()
-        return render_template("page4.html", book=book)
 
 @app.route("/page4", methods=["GET", "POST"])
 @login_required

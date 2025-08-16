@@ -81,6 +81,80 @@
             .nav-links a[aria-current="page"] {
                 color: var(--pale);
             }
+
+            
+            .card {
+                background: var(--pale);         /* lighter background */
+                color: var(--card);              /* darker text for contrast */
+                overflow: hidden;
+                box-shadow: var(--shadow);
+                width: 80%;                      /* table length */
+                margin: 0 auto;    
+                border-radius: 12px;      
+            }
+
+            .book-table {
+                width: 100%; 
+                border-collapse: collapse;
+            }
+
+            .book-table thead th {
+                background: var(--hover-purple);
+                color: var(--pale);
+                text-align: left;
+                padding: 14px 18px;
+            }
+
+            .book-table td {
+                padding: 14px 18px;
+                border-top: 1px solid rgba(0,0,0,0.05);
+                vertical-align: middle;
+                }
+
+            .book-table tr:hover {
+                background: #e9c3e5;
+                color: #4b0239; /* so text stays readable */
+            }
+
+            .col-num {
+                width: 80px;
+                text-align: right;
+                padding-right: 24px;
+            }
+
+            .col-title {
+                width: auto;
+            }
+
+            .empty-wrap{
+                display:flex;
+                justify-content:center;
+                margin-top:60px;
+            }
+
+            .empty-cta {
+                display: inline-block;
+                padding: 20px 32px;
+                margin: 60px auto;
+                background: var(--pale);
+                color: var(--card);
+                font-size: 1.3rem;
+                font-weight: 600;
+                border-radius: 20px;
+                box-shadow: 0 6px 18px rgba(0, 0, 0, 0.25);
+                text-align: center;
+                animation: bob 2s infinite ease-in-out;
+            }
+
+            .empty-cta::before {
+                content: "🎣 ";
+                font-size: 1.5rem;
+            }
+
+            @keyframes bob {
+                0%, 100% { transform: translateY(0px); }
+                50% { transform: translateY(-4px); }
+            }
     </style>
 
 <link rel="icon" type="image/png" href="logo.png">
@@ -103,5 +177,33 @@
             <li><a href="/logout">Logout</a></li>
             </ul>
         </nav>
+    </header>
+
+    {% if titles and titles|length %}
+      <section class="card">
+        <table class="book-table">
+          <thead>
+            <tr>
+              <th class="col-num">#</th>
+              <th class="col-title">Title</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for t in titles %}
+              <tr>
+                <td class="col-num">{{ loop.index }}</td>
+                <td class="col-title">{{ t }}</td>
+              </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </section>
+    {% else %}
+      <div class="empty-wrap">
+        <div class="empty-cta">Start fishing!</div>
+      </div>
+    {% endif %}
+  </div>
+
 </body>
 
