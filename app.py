@@ -100,14 +100,20 @@ def register():
 @login_required
 def page3():
     if request.method == "POST":
-        print()
-    else:
-        conn = sqlite3.connect('books.db')
+        conn = sqlite3.connect('choices.db')
         conn.row_factory = sqlite3.Row #makes it like a dictionary
         cursor = conn.cursor()
-<<<<<<< HEAD
-        cursor.execute("SELECT genre1,genre2,genre3 FROM users WHERE id = ?", (id,))
-        user_genres = cursor.fetchone()
+        cursor.execute("INSERT INTO choices (user_id, title, author) VALUES(?,?,?)",(session["user_id"], request.form.get("choice"),request.form.get("choice2")))
+        conn.commit()
+        conn.close()
+        return redirect("/page3")
+    else:
+        id = session["user_id"]
+        conn1 = sqlite3.connect('users.db')
+        conn1.row_factory = sqlite3.Row #makes it like a dictionary
+        cursor1 = conn1.cursor()
+        cursor1.execute("SELECT genre1,genre2,genre3 FROM users WHERE id = ?", (id,))
+        user_genres = cursor1.fetchone()
 
         conn2 = sqlite3.connect('books.db')
         conn2.row_factory = sqlite3.Row #makes it like a dictionary
@@ -119,10 +125,6 @@ def page3():
         else:
             cursor2.execute("SELECT * FROM books")
         books = [dict(row) for row in cursor2.fetchall()]
-=======
-        cursor.execute("SELECT * FROM books")
-        books = [dict(row) for row in cursor.fetchall()]
->>>>>>> 9cea0ed (changes)
         book = random.choice(books)
         book['genres'] = ast.literal_eval(book['genres'])
         book['publication_info'] = ast.literal_eval(book['publication_info']) 
