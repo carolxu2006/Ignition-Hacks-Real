@@ -165,6 +165,27 @@
     .nav-links a[aria-current="page"] {
         color: #F9F0F7;
     }
+
+        .slide-left-button, .slide-right-button {
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      width: 50%;
+      height: 100%;
+      background-color: transparent;
+      border: none;
+      z-index: 10;
+    }
+
+    .slide-left-button {
+      left: 0;
+      cursor: pointer;
+    }
+
+    .slide-right-button {
+      right: 0;
+      cursor: pointer;
+    }
   </style>
   <link rel="shortcut icon" type="image/x-icon" href="hookIcon.ico" />
 
@@ -203,6 +224,11 @@
           <form action="/page4" method ="post">
             <input type="hidden" name="book_id" value="{{book.book_id}}">
             <button class="details-btn">Details</button>
+          </form>
+          <form action = "/page3" method = "post">
+            <input type="hidden" name="choice" value="{{book.book_title}}">
+            <input type="hidden" name="choice2" value="{{book.author}}">
+            <button class="slide-right-button"></button>
           </form>
         </div>
       </div>
@@ -286,7 +312,7 @@
         window.location.reload()
       } else if (x > 2 * third) {
         currentCard.classList.add('slide-right');
-        window.location.reload()
+        document.querySelector('form[action="/page3"]').submit();
       }
       
       // After animation completes, create a new card
