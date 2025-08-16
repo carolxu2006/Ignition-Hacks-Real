@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Hook</title>
   <style>
+    /* Base */
     :root {
       --bg: #3D0037;
       --fg: #500243;
@@ -13,6 +14,8 @@
     }
 
     * { box-sizing: border-box; }
+
+    /* Body */
     body {
       margin: 0;
       font-family: Georgia, Times, "Times New Roman", serif;
@@ -21,7 +24,7 @@
       line-height: 1.45;
       perspective: 1500px;
     }
-
+    
     .wrapper {
       max-width: 1100px;
       margin: 0 auto;
@@ -30,6 +33,7 @@
       cursor: pointer;
     }
 
+    /* Card */
     .card {
       background: #F9F0F7;
       border-radius: 16px;
@@ -42,6 +46,7 @@
     .card.slide-left { transform: translateX(-200%) rotateZ(-15deg); opacity: 0; }
     .card.slide-right { transform: translateX(200%) rotateZ(15deg); opacity: 0; }
 
+    /* Split */
     .split {
       display: flex;
       align-items: stretch;
@@ -49,10 +54,12 @@
       padding: clamp(16px, 2vw, 28px);
     }
 
+    /* Left */
     .left {
       flex: 0 0 42%;  
       max-width: 42%;
     }
+
     .left img {
       width: 100%;
       height: 100%;
@@ -62,6 +69,7 @@
       pointer-events: none;
     }
 
+    /* Right */
     .right {
       flex: 1;
       display: flex;
@@ -70,6 +78,8 @@
       gap: 12px;
       pointer-events: none;
     }
+
+    /* Line Info */
     .line-info {
       font-size: clamp(16px, 2.2vw, 22px);
       font-weight: bold;
@@ -86,6 +96,7 @@
       margin-left: 4px;
     }
 
+    /* Details Button */
     .details-btn {
       margin-top: 16px;
       padding: 12px 24px;
@@ -101,10 +112,12 @@
       align-self: flex-start;
     }
 
+    /* Details Button */
     .details-btn:hover {
       background: var(--button-hover);
     }
 
+    /* Nav */
     .nav {
         width: 100%;
         max-width: 1200px;
@@ -166,7 +179,8 @@
         color: #F9F0F7;
     }
 
-        .slide-left-button, .slide-right-button {
+    /* Slide Buttons */
+    .slide-left-button, .slide-right-button {
       position: absolute;
       top: 0;
       bottom: 0;

@@ -9,9 +9,8 @@ Users can select favorite genres, list top 3 favorite books, and browse recommen
 - **User Authentication** — Sign up, log in, and manage your account.
 - **Preference Form** — Select up to 3 favorite genres.
 - **Top Books** — Enter your top 3 favorite books.
-- **Responsive Design** — Works on desktop and mobile.
-- **Navigation Bar** — Quick access to preferences, books, and logout.
-- **Clean UI** — Modern design with pill-shaped genre tags and styled buttons.
+- **Navigation Bar** — Quick access to login, register, preferences, books, and logout.
+- **Clean and Minimalistic UI** — Modern design with pill-shaped genre tags and styled buttons.
 
 ---
 
@@ -32,7 +31,7 @@ Users can select favorite genres, list top 3 favorite books, and browse recommen
 ## 📷 Screenshots
 
 ### Preferences Page
-![Preferences Page](screenshots/preferences.png)
+![Preferences Page](static/preferences.png)
 
 ---
 
@@ -42,3 +41,26 @@ Users can select favorite genres, list top 3 favorite books, and browse recommen
    ```bash
    git clone https://github.com/yourusername/hooked.git
    cd hooked
+2. **Create and activate a virtual environment**  
+  ```bash
+  python -m venv venv
+  source venv/bin/activate   # macOS / Linux
+  venv\Scripts\activate      # Windows
+3. **Install dependencies**
+  ```bash
+  pip install -r requirements.txt
+4. **Run the Flask app**
+  ```bash
+  flask run
+5. **Open in your browser**
+  ```bash
+  http://127.0.0.1:5000
+  
+
+## Project Structure
+hooked/
+│── static/               # CSS, images, icons
+│── templates/            # HTML templates (Jinja2)
+│── app.py                 # Flask application entry point
+│── requirements.txt       # Python dependencies
+│── README.md              # Project documentation
